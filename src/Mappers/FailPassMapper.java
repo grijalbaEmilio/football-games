@@ -4,6 +4,7 @@ import Exceptions.PlayerNotInAlignment;
 import model.Alignment;
 import model.FailPass;
 import model.Player;
+import model.SuccessPass;
 
 import java.util.List;
 
@@ -21,7 +22,10 @@ public class FailPassMapper {
             Player passer = alignment.findByNumber(passerNumber);
             Player receiver = alignment.findByNumber(receiverNumber);
 
-           return new FailPass(passer, receiver, numberPasses);
+            FailPass pass = new FailPass(passer, receiver, numberPasses);
+            passer.addPassFail(pass);
+
+           return pass;
 
         }).toList();
 

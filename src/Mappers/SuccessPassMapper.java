@@ -21,7 +21,11 @@ public class SuccessPassMapper {
             Player passer = alignment.findByNumber(passerNumber);
             Player receiver = alignment.findByNumber(receiverNumber);
 
-           return new SuccessPass(passer, receiver, numberPasses);
+            SuccessPass pass = new SuccessPass(passer, receiver, numberPasses);
+
+            passer.addPassSucc(pass);
+
+           return pass;
 
         }).toList();
     }
