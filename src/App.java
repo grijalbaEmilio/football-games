@@ -1,8 +1,10 @@
+import Mappers.FailPassMapper;
 import Mappers.GameMapper;
 import Mappers.PlayerMapper;
 import Mappers.SuccessPassMapper;
 import loadFile.FileManager;
 import model.*;
+import reports.AbastractGameReport;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +16,9 @@ public class App {
         FileManager manager = new FileManager();
         PlayerMapper mapper = new PlayerMapper();
         SuccessPassMapper mapperPass = new SuccessPassMapper();
+        FailPassMapper mapperFailPass = new FailPassMapper();
         GameMapper mapperGame = new GameMapper();
+        AbastractGameReport report = new AbastractGameReport();
 
         try {
             List<String> playersListString = manager.readFileLineByLine("src/initialFiles/alineacionP01.dat");
@@ -26,7 +30,7 @@ public class App {
             List<SuccessPass> successPasses = mapperPass.createPasses(passString, alignment);
 
             List<String> passFailString = manager.readFileLineByLine("src/initialFiles/PasesErradosP01.dat");
-            List<SuccessPass> failPasses = mapperPass.createPasses(passString, alignment);
+            List<FailPass> failPasses = mapperFailPass.createPasses(passFailString, alignment);
 
             String gameString = manager.readFile("src/initialFiles/partidoP01.dat");
             Game game = mapperGame.createGame(gameString, alignment);
@@ -34,10 +38,10 @@ public class App {
             List<Pass> passes = new ArrayList<>();
             passes.addAll(successPasses);
             passes.addAll(failPasses);
-            AbstactGame abstactGame = new AbstactGame(game, passes);
+            AbstractGame abstactGame = new AbstractGame(game, passes);
 
 
-            System.out.println(abstactGame);
+            report.generateReportIndexPassGame(abstactGame);
 
         } catch (IOException e) {
             System.out.println(e.getClass());

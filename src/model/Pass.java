@@ -12,8 +12,8 @@ public class Pass {
         this.numPasses = numPasses;
     }
 
-    public Player getPasser() {
-        return passer;
+    public int getPasserNumber() {
+        return passer.getNumber();
     }
 
     public void setPasser(Player passer) {
@@ -34,6 +34,10 @@ public class Pass {
 
     public void setReceiver(Player receiver) {
         this.receiver = receiver;
+    }
+
+    public boolean constainsPasser(int number){
+        return passer.getNumber() == number;
     }
 
     @Override

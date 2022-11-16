@@ -62,4 +62,14 @@ public class FileManager {
         Files.write(directoryPath, fileBytes);
     }
 
+    public void writeOneLine(String line, String filePath) throws IOException {
+
+        Path directoryPath = Paths.get(filePath);
+        String contentFile = readFile(filePath);
+        contentFile += line;
+        byte[] fileBytes = contentFile.getBytes();
+
+        Files.write(directoryPath, fileBytes);
+    }
+
 }

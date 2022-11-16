@@ -1,5 +1,7 @@
 package model;
 
+import Exceptions.PlayerNotInAlignment;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,12 +17,20 @@ public class Alignment {
         return players;
     }
 
-    public Player findByNumber(int number){
+    public boolean constainsPlayer(int number){
+        for (Player player: players) {
+            if(player.getNumber() == number) return true;
+        }
+
+        return false;
+    }
+
+    public Player findByNumber(int number) throws PlayerNotInAlignment {
         List<Player> findPlayer = players.stream()
                 .filter(x -> x.getNumber() == number)
                 .toList();
 
-        if (findPlayer.isEmpty()) return null;
+        if (findPlayer.isEmpty()) throw new PlayerNotInAlignment("payer with number "+number+" not aligned for the game");;
 
         return  findPlayer.get(0);
 

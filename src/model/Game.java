@@ -1,6 +1,8 @@
 package model;
 
 
+import Exceptions.PlayerNotInAlignment;
+
 import java.time.LocalDateTime;
 
 public class Game {
@@ -34,6 +36,14 @@ public class Game {
 
     public String getRivalTeam() {
         return rivalTeam;
+    }
+
+    public boolean playerPlayed(int number){
+        return alignment.constainsPlayer(number);
+    }
+
+    public String namePlayerPlayed(int number) throws PlayerNotInAlignment {
+        return alignment.findByNumber(number).getName();
     }
 
     @Override
